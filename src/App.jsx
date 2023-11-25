@@ -1,17 +1,20 @@
-import {Canvas, useFrame, useThree} from "@react-three/fiber";
+import {Canvas, useFrame} from "@react-three/fiber";
 import './App.scss';
-import {MeshPortalMaterial, OrbitControls, Stats, StatsGl, useTexture} from "@react-three/drei";
+import {Environment, MeshPortalMaterial, OrbitControls, Stats, StatsGl, useTexture} from "@react-three/drei";
 import {Me} from "./Me.jsx";
 import * as THREE from "three";
 import {Vector3} from "three";
-import {useLayoutEffect, useRef} from "react";
+import {useRef} from "react";
+import {Emoji} from "./Emoji.jsx";
+import {Burger} from "./Burger.jsx";
+import {Lollipop} from "./Lollipop.jsx";
 
 function App() {
   const DEV = false;
 
   return (
     <Canvas shadows
-            camera={[0, 0, 2]}
+            camera={[0, 0, .005]}
             gl={{
               preserveDrawingBuffer: true,
             }}>
@@ -29,19 +32,40 @@ function App() {
                        makeDefault/>
       </>}
       <Rig/>
+      <Environment preset={'apartment'}/>
+
       <Scene/>
     </Canvas>
   )
 }
 
 function Scene() {
+  return <>
+    <group>
+      <Portal/>
+    </group>
+    <group position={[.18, .12, 0.02]}>
+      <Emoji/>
+    </group>
+    <group position={[-.18, .1, 0.04]}>
+      <Burger/>
+    </group>
+    <group position={[-.2, -.05, 0.025]}
+           rotation={[0, 0, 0.6]}>
+      <Lollipop scale={0.015}/>
+    </group>
+
+  </>
+}
+
+function Portal() {
   const groupRef = useRef();
   const map = useTexture('/env.jpg');
   const textureRotate = Math.PI / 1.8;
 
   return <group ref={groupRef}>
     <mesh>
-      <sphereGeometry args={[.22, 35, 35]}/>
+      <circleGeometry args={[.22, 35, 35]}/>
       <MeshPortalMaterial>
         <directionalLight position={[0, 1, 1]} intensity={4}/>
         <directionalLight position={[0, -1, 1]} intensity={4}/>
