@@ -1,6 +1,6 @@
 import {Canvas} from "@react-three/fiber";
 import './App.scss';
-import {OrbitControls} from "@react-three/drei";
+import {OrbitControls, Stats, StatsGl} from "@react-three/drei";
 import {Me} from "./Me.jsx";
 
 function App() {
@@ -8,7 +8,19 @@ function App() {
     <Canvas shadows gl={{
       preserveDrawingBuffer: true,
     }}>
-      <OrbitControls maxPolarAngle={Math.PI / 2} makeDefault/>
+      <gridHelper/>
+      <gridHelper rotation-x={Math.PI / 2} position-y={0}/>
+      <Stats/>
+      <StatsGl/>
+      <OrbitControls enableDamping={true}
+                     maxPolarAngle={1.5}
+                     minPolarAngle={1}
+                     maxAzimuthAngle={.2}
+                     minAzimuthAngle={-.2}
+                     enableZoom={false}
+                     makeDefault/>
+      <directionalLight position={[0, 1, 1]} intensity={5} theatreKey={'light'}/>
+      <directionalLight position={[0, -1, 1]} intensity={5} theatreKey={'light'}/>
       <Me/>
     </Canvas>
   )
