@@ -10,9 +10,11 @@ function App() {
   const DEV = false;
 
   return (
-    <Canvas shadows gl={{
-      preserveDrawingBuffer: true,
-    }}>
+    <Canvas shadows
+            camera={[0, 0, 2]}
+            gl={{
+              preserveDrawingBuffer: true,
+            }}>
       {DEV && <>
         <gridHelper/>
         <gridHelper rotation-x={Math.PI / 2} position-y={0}/>
@@ -35,26 +37,27 @@ function App() {
 function Scene() {
   const groupRef = useRef();
   const map = useTexture('/env.jpg');
-  const {camera, mouse} = useThree();
-  useLayoutEffect(() => {
-    camera.position.set(0, 0, .5);
-  });
-
+  const textureRotate = Math.PI / 1.8;
 
   return <group ref={groupRef}>
     <mesh>
-      <sphereGeometry args={[.22, 15, 15]}/>
+      <sphereGeometry args={[.22, 35, 35]}/>
       <MeshPortalMaterial>
-        <directionalLight position={[0, 1, 1]} intensity={5} theatreKey={'light'}/>
-        <directionalLight position={[0, -1, 1]} intensity={5} theatreKey={'light'}/>
+        <directionalLight position={[0, 1, 1]} intensity={4}/>
+        <directionalLight position={[0, -1, 1]} intensity={4}/>
+        <directionalLight position={[0, -1, 1]} intensity={4} colour={'#ff0000'}/>
 
-        <mesh>
-          <sphereGeometry args={[10, 32, 32]}/>
-          <meshStandardMaterial map={map} side={THREE.BackSide}/>
-          <group position={[0, -.1, 0]}>
-            <Me/>
-          </group>
-        </mesh>
+        <group rotation={[0, textureRotate, 0]}>
+          <mesh>
+            <sphereGeometry args={[10, 32, 32]}/>
+            <meshStandardMaterial map={map}
+                                  side={THREE.BackSide}/>
+            <group position={[0, -.1, 0]}
+                   rotation={[0, -textureRotate, 0]}>
+              <Me/>
+            </group>
+          </mesh>
+        </group>
       </MeshPortalMaterial>
     </mesh>
   </group>
@@ -64,7 +67,6 @@ function Rig() {
   const vec = new Vector3();
   return useFrame(({camera, mouse}) => {
     vec.set(-mouse.x * .2, -mouse.y * .2, .5)
-    console.log(vec)
     camera.position.lerp(vec, 0.025)
     camera.lookAt(0, 0, 0)
   })
