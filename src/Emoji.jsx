@@ -3,7 +3,7 @@ import { useGLTF } from "@react-three/drei";
 
 export function Emoji(props) {
   const { nodes, materials } = useGLTF(
-    "/models/emoji.glb"
+    "./models/emoji.glb"
   );
   const scale = 0.012;
   return (
@@ -18,4 +18,4 @@ export function Emoji(props) {
   );
 }
 
-useGLTF.preload("/models/emoji.glb");
+useGLTF.preload("./models/emoji.glb");

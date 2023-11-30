@@ -60,7 +60,7 @@ function Scene() {
 
 function Portal() {
   const groupRef = useRef();
-  const map = useTexture('/env.jpg');
+  const map = useTexture('./env.jpg');
   const textureRotate = Math.PI / 1.8;
 
   return <group ref={groupRef}>

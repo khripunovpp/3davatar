@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 
 export function Lollipop(props) {
-  const { nodes, materials } = useGLTF("/models/lollipop.glb");
+  const { nodes, materials } = useGLTF("./models/lollipop.glb");
   const scale = props.scale ?? 0.018;
   return (
     <group {...props}
@@ -25,4 +25,4 @@ export function Lollipop(props) {
   );
 }
 
-useGLTF.preload("/models/lollipop.glb");
+useGLTF.preload("./models/lollipop.glb");

@@ -3,7 +3,7 @@ import { useGLTF } from "@react-three/drei";
 import {useThree} from "@react-three/fiber";
 
 export function Me(props) {
-  const { nodes, materials } = useGLTF("/models/me.gltf");
+  const { nodes, materials } = useGLTF("./models/me.gltf");
 
   return (
     <group {...props} dispose={null}>
@@ -18,4 +18,4 @@ export function Me(props) {
   );
 }
 
-useGLTF.preload("/models/me.gltf");
+useGLTF.preload("./models/me.gltf");

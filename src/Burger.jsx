@@ -2,7 +2,7 @@ import React from "react";
 import {useGLTF} from "@react-three/drei";
 
 export function Burger(props) {
-  const {nodes, materials} = useGLTF("/models/burger.glb");
+  const {nodes, materials} = useGLTF("./models/burger.glb");
   const scale = 0.02;
   return (
     <group {...props}
@@ -97,4 +97,4 @@ export function Burger(props) {
   );
 }
 
-useGLTF.preload("/models/burger.glb");
+useGLTF.preload("./models/burger.glb");
